@@ -2,8 +2,14 @@
 A python module for calculating square root using the 
 Newton's method implemented in ME522 class
 """
+"""
+s = x^1/3 now we can write is as s^3 - x = 0
+now our task is to find the root of f(s)= s^3 - x = 0
+now using Newton's method
+"""
 
-def cubert(x,s,debug=False,specialCases=True):
+
+def cubert(x,s=1.,debug=False,specialCases=True):
 	"""
 	The actual cubert function
 	Inputs
@@ -13,7 +19,8 @@ def cubert(x,s,debug=False,specialCases=True):
 
 	"""
 	#from numpy import nan
-	
+	print("You can also pass the intial guess along with value by default initial guess is 1: "
+		"Second value will be initial guess.")
 	if specialCases:
 		if x==0.:
 			return 0.
@@ -38,11 +45,12 @@ def cubert(x,s,debug=False,specialCases=True):
 	return s
 
 def test_main():
-	from numpy import sqrt
+	from numpy import cbrt
 	xvalues=[0., 1., -1000, 1.e6]
 	for x in xvalues:
 		print("Testing with x=%20.15e" %x)
-		s=cubert(x,s)
-		s_numpy=sqrt(x)
+		s=cubert(x,s=1.)
+		s_numpy=cbrt(x)
 		print("cubert s = %20.15e, numpy s = %20.15e" %(s,s_numpy))
 		assert abs(s-s_numpy) < 1e-14, "Your  cuberoot does not agree with numpy cbrt"
+		
