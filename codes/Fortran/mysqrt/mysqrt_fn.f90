@@ -1,18 +1,19 @@
 ! A fortran subroutine for calculating square root 
 ! using the Newton's method
 
-program mysqrt
+program mysqrt_fn
 	
 	implicit none
 	real (kind=8):: y,x
+	real(kind=8),external::mysqroot
 	print *, "Please enter the positive number"
 	read *, y
-	call mysqroot(y,x)
-	print*, "The root of n is = ", x
+	x= mysqroot(y,x)
+	print*, "The root of y is = ", x
 
 end program
 
-subroutine mysqroot(y,x)
+real(kind=8) function mysqroot(y,x)
 	implicit none
 	real(kind=8),intent(inout)::x
 	real(kind=8), intent(in)::y
@@ -28,7 +29,6 @@ subroutine mysqroot(y,x)
 			exit
 		end if
 	end do
+	mysqroot=x
 		
-
-
-end subroutine mysqroot
+end function mysqroot
