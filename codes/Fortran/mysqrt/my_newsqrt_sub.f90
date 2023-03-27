@@ -6,19 +6,21 @@ program mysqrt
 	implicit none
 	integer::i,kmax
 	real (kind=8):: y,x,tol
-	tol=1.d0-14
-	kmax=1000
+	logical:: debug=.TRUE.
+	tol=1.d0-4
+	kmax=100
 	print *, "Please enter the positive number"
 	read *, y
-	call mysqroot(y,kmax,tol,x,i)
+	call mysqroot(y,kmax,tol,debug,x,i)
 	print*,"The root of ",y," is = ", x, "at the iteraton ",i
 
 end program
 
-subroutine mysqroot(y,kmax,tol,x,i)
+subroutine mysqroot(y,kmax,tol,debug,x,i)
 	implicit none
 	real(kind=8),intent(inout)::x
 	real(kind=8), intent(in)::y,tol
+	logical,intent(in)::debug
 	integer,intent(in)::kmax
 	integer,intent(inout)::i
 	real (kind=8)::tmp
@@ -26,7 +28,10 @@ subroutine mysqroot(y,kmax,tol,x,i)
 	do i=1,kmax
 		tmp=x
 		x=0.5d0*(x+y/x)
-		if(abs(tmp-x)/y.LT.tol) then
+		if (debug)then
+		print*, "At iteration",i,"Root is",x
+		endif
+		if(abs(tmp-x).LT.tol) then
 			!print*, "Root is converged and root is",x,i
 			exit
 		end if
