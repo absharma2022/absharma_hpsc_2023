@@ -1,34 +1,53 @@
-! A fortran subroutine for calculating square root 
-! using the Newton's method
 
 program mysqrt
-	
-	implicit none
-	real (kind=8):: y,x
-	print *, "Please enter the positive number"
-	read *, y
-	call mysqroot(y,x)
-	print*, "The root of n is = ", x
 
-end program
+    implicit none                  
+    real (kind=8) :: x, y, sqrt_true
+    real (kind=8), external :: sqrtNT
 
-subroutine mysqroot(y,x)
-	implicit none
-	real(kind=8),intent(inout)::x
-	real(kind=8), intent(in)::y
-	integer :: i
-	real (kind=8):: tol,tmp
-	tol=1.d0-14
-	x=1.d0 !initial guess
-	do i=1,1000
-		tmp=x
-		x=0.5d0*(x+y/x)
-		if(abs(tmp-x).LT.tol) then
-			print*, "Root is converged and root is",x,i
-			exit
-		end if
-	end do
-		
+    x = 2.0
+    sqrt_true = sqrt(x)
+    y = sqrtNT(x)   ! uses function below
+    print *, "x = ",x
+    print *, "sqrt_true  = ",sqrt_true
+    print *, "sqrtNT = ",y
+    print *, "error     = ",y - sqrt_true
+
+end program mysqrt
+
+!==========================
+function sqrtNT(x)
+!==========================
+    implicit none
+
+    ! function arguments:
+    real (kind=8), intent(in) :: x
+    real (kind=8) :: sqrtNT
+
+    ! local variables:
+    real (kind=8) :: s, s_prev, delta_s, tol
+    integer :: k, kmax
 
 
-end subroutine mysqroot
+    kmax=100
+    s = 1.
+    tol=1.d-14
+    
+
+    do k=1,kmax
+        s_prev=s
+        s = 0.5*(s+x/s)
+        delta_s=s-s_prev
+        if ((abs(delta_s/x)) < tol) then 
+            exit
+        endif
+    enddo
+     sqrtNT = s  ! this is the value returned
+end function sqrtNT
+
+! Exercise: write a subroutine sqrtNT_sub that returns 
+! two arguments - sqrt and the number of iterations taken to stop.
+! The variables kmax, s_init and tol should also be passed
+! to the subroutine
+! Include debug flag too just like in the Python code
+
