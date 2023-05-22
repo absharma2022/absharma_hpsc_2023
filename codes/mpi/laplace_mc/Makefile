@@ -2,8 +2,8 @@
 OBJECTS = random_util.o problem_description.o mc_walk.o laplace_mc.o
 FFLAGS = 
 NUM_PROCS ?= 4   # default if not specified on command line or env variable
-mpif90 = /Users/bhutani/opt/usr/local/bin/mpif90
-mpiexec = /Users/bhutani/opt/usr/local/bin/mpiexec
+#mpif90 = /Users/bhutani/opt/usr/local/bin/mpif90
+#mpiexec = /Users/bhutani/opt/usr/local/bin/mpiexec
 
 .PHONY: test plot clean clobber
 

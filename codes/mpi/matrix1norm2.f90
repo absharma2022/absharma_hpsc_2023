@@ -32,10 +32,11 @@ program matrix1norm2
         a = 1.d0  ! initialize to all 1's for this test
         allocate(anorm(ncols))    ! to hold norm of each column in MPI_RECV
         endif
-
+! Make the cahanges in call MPI_BCAST 
+!nrows and ncols are MPI_INTEGERS instead of MPI_DOUBLE_PRECISION
         
-    call MPI_BCAST(nrows, 1, MPI_DOUBLE_PRECISION, 0, MPI_COMM_WORLD, ierr)
-    call MPI_BCAST(ncols, 1, MPI_DOUBLE_PRECISION, 0, MPI_COMM_WORLD, ierr)
+    call MPI_BCAST(nrows, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
+    call MPI_BCAST(ncols, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
 
     if (proc_num > 0) then
         allocate(colvect(nrows))   ! to hold a column vector sent from master

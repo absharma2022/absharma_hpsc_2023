@@ -5,7 +5,7 @@ import time
 
 import jacobi1   # created from jacobi1.f90 using f2py
 
-n = 51
+n = 4
 
 # grid points:
 x = np.linspace(0., 1., n)
@@ -28,8 +28,8 @@ plt.ylim([10., 80.])
 
 ans = input("Type return to start... ")
 
-iters_per_plot = 200   # number of iterations between plots
-nplots = 20            # number of plots to produce
+iters_per_plot = 2  # number of iterations between plots
+nplots =    2      # number of plots to produce
 
 for nn in range(nplots):
     u = jacobi1.iterate(u, iters_per_plot, f)
@@ -38,6 +38,7 @@ for nn in range(nplots):
     plt.title("After %s iterations" % niters)
     plt.ylim([10., 80.])
     plt.draw()
+    plt.show()
     plt.pause(0.005)
     time.sleep(.5)
     

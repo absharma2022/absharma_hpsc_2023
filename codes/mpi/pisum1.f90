@@ -25,12 +25,12 @@ program pisum1
     call mpi_bcast(n, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
 
     dx = 1.d0/n
-
+	
     ! Determine how many points to handle with each proc
     points_per_proc = (n + numprocs - 1)/numprocs
     if (proc_num == 0) then   ! Only one proc should print to avoid clutter
         print *, "points_per_proc = ", points_per_proc
-    end if
+   end if
 
     ! Determine start and end index for this proc's points
     istart = proc_num * points_per_proc + 1
